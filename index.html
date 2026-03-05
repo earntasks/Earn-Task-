@@ -695,6 +695,10 @@
             color: #0088CC;
         }
 
+        .social-card.whatsapp i {
+            color: #25D366;
+        }
+
         .social-card.youtube i {
             color: #FF0000;
         }
@@ -967,6 +971,63 @@
             }
         }
 
+        /* Banner Slider */
+        .banner-slider {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .banner-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .banner-slide.active {
+            opacity: 1;
+        }
+
+        .banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .banner-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        .dot:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .auth-box {
@@ -983,6 +1044,10 @@
 
             .header h2 {
                 font-size: 16px;
+            }
+
+            .banner-slider {
+                height: 150px;
             }
         }
 
@@ -1023,6 +1088,189 @@
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
+        }
+
+        /* Task Management Styles */
+        .task-platform-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .task-platform-icon.youtube { color: #FF0000; }
+        .task-platform-icon.facebook { color: #1877F2; }
+        .task-platform-icon.instagram { color: #E4405F; }
+        .task-platform-icon.whatsapp { color: #25D366; }
+
+        .task-platform-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .task-platform-badge.youtube { background: #FEE2E2; color: #DC2626; }
+        .task-platform-badge.facebook { background: #DBEAFE; color: #2563EB; }
+        .task-platform-badge.instagram { background: #FCE7F3; color: #DB2777; }
+        .task-platform-badge.whatsapp { background: #D1FAE5; color: #059669; }
+
+        .admin-task-item {
+            background: #F9FAFB;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .admin-task-item.inactive {
+            border-left-color: #9CA3AF;
+            opacity: 0.7;
+        }
+
+        .admin-task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .admin-task-title {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .admin-task-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .admin-task-details {
+            font-size: 13px;
+            color: #6B7280;
+            margin-bottom: 10px;
+        }
+
+        .admin-task-earning {
+            font-weight: 600;
+            color: var(--success);
+        }
+
+        /* Form styles for task management */
+        .task-form-group {
+            margin-bottom: 15px;
+        }
+
+        .task-form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .task-form-group input,
+        .task-form-group select,
+        .task-form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .task-form-group input:focus,
+        .task-form-group select:focus,
+        .task-form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        /* Banner Management Styles */
+        .banner-upload-section {
+            background: #F9FAFB;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .banner-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .banner-preview-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .banner-preview-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .banner-preview-item .remove-btn,
+        .banner-preview-item .delete-banner-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .banner-preview-item:hover .delete-banner-btn {
+            opacity: 1;
+        }
+
+        .delete-banner-btn {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .banner-upload-input {
+            border: 2px dashed #E5E7EB;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .banner-upload-input:hover {
+            border-color: var(--secondary);
+            background: #EFF6FF;
+        }
+
+        /* User Withdrawal Settings */
+        .user-withdrawal-settings {
+            background: #F9FAFB;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .withdrawal-setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .withdrawal-setting-row:last-child {
+            margin-bottom: 0;
         }
     </style>
 <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
@@ -1124,6 +1372,20 @@
                     <i class="fas fa-headset"></i>
                 </div>
                 <img src="https://via.placeholder.com/40" alt="Profile" class="profile-pic" id="headerProfilePic" onclick="showSection('profile')">
+            </div>
+        </div>
+
+        <!-- Image Slider Banner -->
+        <div class="banner-slider" id="bannerSlider">
+            <div class="banner-slide active">
+                <img src="banner1.png" alt="Islamic Banner 1" class="banner-image">
+            </div>
+            <div class="banner-slide">
+                <img src="banner2.png" alt="Islamic Banner 2" class="banner-image">
+            </div>
+            <div class="banner-dots">
+                <span class="dot active" onclick="goToSlide(0)"></span>
+                <span class="dot" onclick="goToSlide(1)"></span>
             </div>
         </div>
 
@@ -1350,6 +1612,9 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Update Profile</button>
                 </form>
+                <button class="btn btn-danger" onclick="logout()" style="margin-top: 20px; background: var(--danger);">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
             </div>
         </div>
 
@@ -1390,6 +1655,11 @@
                 <a href="https://t.me/tasksearn12" target="_blank" class="social-card telegram">
                     <i class="fab fa-telegram"></i>
                     <h4>Telegram</h4>
+                    <p>Join our channel</p>
+                </a>
+                <a href="https://whatsapp.com/channel/0029VbBei4KLCoWuCjokX410" target="_blank" class="social-card whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                    <h4>WhatsApp</h4>
                     <p>Join our channel</p>
                 </a>
                 <a href="https://youtube.com/@shamastechzone?si=qYMaApcdrPCJr0VY" target="_blank" class="social-card youtube">
@@ -1509,6 +1779,10 @@
                 <i class="fas fa-users"></i>
                 <span>Users</span>
             </div>
+            <div class="dashboard-item" onclick="showAdminSection('tasks')">
+                <i class="fas fa-tasks"></i>
+                <span>Manage Tasks</span>
+            </div>
             <div class="dashboard-item" onclick="showAdminSection('pending-fees')">
                 <i class="fas fa-clock"></i>
                 <span>Pending Fees</span>
@@ -1516,6 +1790,14 @@
             <div class="dashboard-item" onclick="showAdminSection('pending-withdrawals')">
                 <i class="fas fa-money-bill-wave"></i>
                 <span>Pending Withdrawals</span>
+            </div>
+            <div class="dashboard-item" onclick="showAdminSection('banner')">
+                <i class="fas fa-image"></i>
+                <span>Banner Settings</span>
+            </div>
+            <div class="dashboard-item" onclick="showAdminSection('withdrawal-settings')">
+                <i class="fas fa-wallet"></i>
+                <span>Withdrawal Settings</span>
             </div>
             <div class="dashboard-item" onclick="showAdminSection('support')">
                 <i class="fas fa-headset"></i>
@@ -1544,7 +1826,10 @@
                             <th>WhatsApp</th>
                             <th>City</th>
                             <th>Balance</th>
+                            <th>Per Task Earning</th>
                             <th>Referrals</th>
+                            <th>Min Withdraw</th>
+                            <th>Req Referrals</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -1553,6 +1838,28 @@
                         <!-- Users will be loaded here -->
                     </tbody>
                 </table>
+            </div>
+        </div>
+
+        <!-- Admin User Withdrawal Settings Section -->
+        <div class="section" id="admin-withdrawal-settingsSection">
+            <div class="section-header">
+                <h3>💰 Withdrawal Settings</h3>
+                <button class="back-btn" onclick="hideAdminSection()">Back</button>
+            </div>
+            <p style="margin-bottom: 20px; color: #6B7280;">Set minimum withdrawal amount and required referrals for users. These settings apply globally to all users.</p>
+            
+            <div class="user-withdrawal-settings">
+                <h4 style="color: var(--primary); margin-bottom: 15px;">Global Withdrawal Settings</h4>
+                <div class="withdrawal-setting-row">
+                    <label style="font-weight: 500;">Minimum Withdrawal Amount (USD)</label>
+                    <input type="number" id="globalMinWithdrawal" style="width: 150px; padding: 8px; border: 2px solid #E5E7EB; border-radius: 6px;" step="0.01" min="0.1" value="0.50">
+                </div>
+                <div class="withdrawal-setting-row">
+                    <label style="font-weight: 500;">Required Referrals for Withdrawal</label>
+                    <input type="number" id="globalRequiredReferrals" style="width: 150px; padding: 8px; border: 2px solid #E5E7EB; border-radius: 6px;" min="0" value="0">
+                </div>
+                <button class="btn btn-primary" onclick="saveGlobalWithdrawalSettings()" style="margin-top: 15px; width: auto;">Save Settings</button>
             </div>
         </div>
 
@@ -1599,6 +1906,48 @@
                 <!-- Notifications will be loaded here -->
             </div>
         </div>
+
+        <!-- Admin Tasks Section -->
+        <div class="section" id="admin-tasksSection">
+            <div class="section-header">
+                <h3>📋 Manage Tasks</h3>
+                <button class="back-btn" onclick="hideAdminSection()">Back</button>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <button class="btn btn-primary" onclick="showAddTaskModal()" style="width: auto; display: inline-block;">
+                    <i class="fas fa-plus"></i> Add New Task
+                </button>
+            </div>
+            <div id="adminTasksList">
+                <!-- Tasks will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Admin Banner Settings Section -->
+        <div class="section" id="admin-bannerSection">
+            <div class="section-header">
+                <h3>🖼️ Banner Settings</h3>
+                <button class="back-btn" onclick="hideAdminSection()">Back</button>
+            </div>
+            <p style="margin-bottom: 20px; color: #6B7280;">Upload and manage banner images for the user dashboard slider. Images will automatically rotate every 2 seconds.</p>
+            
+            <div class="banner-upload-section">
+                <h4 style="color: var(--primary); margin-bottom: 15px;">📤 Upload New Banner</h4>
+                <div class="banner-upload-input" onclick="document.getElementById('bannerImageInput').click()">
+                    <i class="fas fa-cloud-upload-alt" style="font-size: 32px; color: var(--secondary); margin-bottom: 10px;"></i>
+                    <p>Click to upload banner image</p>
+                    <p style="font-size: 12px; color: #9CA3AF;">Recommended size: 1200x400 pixels</p>
+                    <input type="file" id="bannerImageInput" accept="image/*" style="display: none;" onchange="handleBannerUpload(event)">
+                </div>
+            </div>
+
+            <div class="banner-upload-section">
+                <h4 style="color: var(--primary); margin-bottom: 15px;">🖼️ Current Banners</h4>
+                <div class="banner-preview-grid" id="bannerPreviewGrid">
+                    <!-- Banners will be loaded here -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Modal -->
@@ -1610,6 +1959,19 @@
             </div>
             <div id="modalBody">
                 <!-- Modal content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Completion Modal -->
+    <div class="modal" id="taskCompletionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="taskModalTitle">Complete Task</h3>
+                <button class="close-btn" onclick="closeTaskModal()">&times;</button>
+            </div>
+            <div id="taskModalBody">
+                <!-- Task completion content will be loaded here -->
             </div>
         </div>
     </div>
@@ -1641,6 +2003,9 @@
         let taskEarnings = 0.013;
         let lastReferralDate = null;
         let dailyReferralCount = 0;
+        let currentBannerSlide = 0;
+        let bannerSliderInterval = null;
+        let banners = [];
 
         // Admin Credentials
         const ADMIN_EMAIL = "business236670@gmail.com";
@@ -1665,7 +2030,49 @@
         document.addEventListener('DOMContentLoaded', function() {
             checkAuth();
             setupEventListeners();
+            startBannerSlider();
         });
+
+        // Banner Slider Functions
+        function startBannerSlider() {
+            if (bannerSliderInterval) {
+                clearInterval(bannerSliderInterval);
+            }
+            bannerSliderInterval = setInterval(function() {
+                nextBannerSlide();
+            }, 2000);
+        }
+
+        function nextBannerSlide() {
+            const slides = document.querySelectorAll('.banner-slide');
+            const dots = document.querySelectorAll('.dot');
+            if (slides.length === 0) return;
+            
+            slides[currentBannerSlide].classList.remove('active');
+            dots[currentBannerSlide].classList.remove('active');
+            
+            currentBannerSlide = (currentBannerSlide + 1) % slides.length;
+            
+            slides[currentBannerSlide].classList.add('active');
+            dots[currentBannerSlide].classList.add('active');
+        }
+
+        window.goToSlide = function(index) {
+            const slides = document.querySelectorAll('.banner-slide');
+            const dots = document.querySelectorAll('.dot');
+            if (slides.length === 0) return;
+            
+            slides[currentBannerSlide].classList.remove('active');
+            dots[currentBannerSlide].classList.remove('active');
+            
+            currentBannerSlide = index;
+            
+            slides[currentBannerSlide].classList.add('active');
+            dots[currentBannerSlide].classList.add('active');
+            
+            // Reset interval
+            startBannerSlider();
+        }
 
         // Check Authentication
         function checkAuth() {
@@ -1683,6 +2090,38 @@
                 }
             }
         }
+
+        // Logout Function
+        window.logout = function() {
+            localStorage.removeItem('currentUser');
+            currentUser = null;
+            isAdmin = false;
+            currentUserId = null;
+            
+            document.getElementById('userDashboard').style.display = 'none';
+            document.getElementById('userDashboard').classList.remove('active');
+            document.getElementById('adminDashboard').style.display = 'none';
+            document.getElementById('adminDashboard').classList.remove('active');
+            document.getElementById('authContainer').style.display = 'block';
+            
+            showToast('Logged out successfully', 'success');
+        };
+
+        // Admin Logout Function
+        window.adminLogout = function() {
+            localStorage.removeItem('currentUser');
+            currentUser = null;
+            isAdmin = false;
+            currentUserId = null;
+            
+            document.getElementById('userDashboard').style.display = 'none';
+            document.getElementById('userDashboard').classList.remove('active');
+            document.getElementById('adminDashboard').style.display = 'none';
+            document.getElementById('adminDashboard').classList.remove('active');
+            document.getElementById('authContainer').style.display = 'block';
+            
+            showToast('Admin logged out successfully', 'success');
+        };
 
         // Setup Event Listeners
         function setupEventListeners() {
@@ -1767,6 +2206,7 @@
                 
                 if (foundUser) {
                     currentUser = foundUser;
+                    currentUser.id = foundUserId; // Store ID in user object
                     currentUserId = foundUserId;
                     localStorage.setItem('currentUser', JSON.stringify(currentUser));
                     
@@ -1973,6 +2413,9 @@
             document.getElementById('registrationFees').style.display = 'none';
             document.getElementById('userDashboard').style.display = 'none';
             document.getElementById('pendingStatus').style.display = 'block';
+            if (bannerSliderInterval) {
+                clearInterval(bannerSliderInterval);
+            }
         }
 
         // Load User Data
@@ -2006,6 +2449,7 @@
                     loadTeam();
                     loadLevels();
                     loadChatMessages();
+                    loadBannersForUser();
                     
                     // Listen for real-time updates
                     setupRealtimeListeners();
@@ -2073,63 +2517,8 @@
 
         // Load Tasks
         function loadTasks() {
-            const tasksGrid = document.getElementById('tasksGrid');
-            tasksGrid.innerHTML = '';
-            
-            for (let i = 1; i <= 10; i++) {
-                const isCompleted = currentUser.completedTasks && currentUser.completedTasks.includes(i);
-                
-                const taskCard = document.createElement('div');
-                taskCard.className = `task-card ${isCompleted ? 'completed' : ''}`;
-                taskCard.innerHTML = `
-                    <img src="${taskImages[i-1]}" alt="Task ${i}" class="task-image">
-                    <div class="task-info">
-                        <h4>Task ${i}</h4>
-                        <div class="task-earning">Earn: $${taskEarnings.toFixed(4)}</div>
-                        <button class="task-btn" onclick="completeTask(${i})" ${isCompleted ? 'disabled' : ''}>
-                            ${isCompleted ? 'Completed' : 'Complete Task'}
-                        </button>
-                    </div>
-                `;
-                
-                tasksGrid.appendChild(taskCard);
-            }
-        }
-
-        // Complete Task
-        window.completeTask = async function(taskId) {
-            try {
-                if (currentUser.completedTasks && currentUser.completedTasks.includes(taskId)) {
-                    showToast('Task already completed', 'error');
-                    return;
-                }
-                
-                const completedTasks = currentUser.completedTasks || [];
-                completedTasks.push(taskId);
-                
-                const newBalance = currentUser.currentBalance + taskEarnings;
-                const newTotalBalance = currentUser.totalBalance + taskEarnings;
-                
-                await update(ref(db, `users/${currentUserId}`), {
-                    completedTasks,
-                    tasksCompleted: completedTasks.length,
-                    currentBalance: newBalance,
-                    totalBalance: newTotalBalance
-                });
-                
-                currentUser.completedTasks = completedTasks;
-                currentUser.tasksCompleted = completedTasks.length;
-                currentUser.currentBalance = newBalance;
-                currentUser.totalBalance = newTotalBalance;
-                
-                updateDashboardUI();
-                loadTasks();
-                showToast(`Task ${taskId} completed! Earned $${taskEarnings.toFixed(4)}`, 'success');
-                
-            } catch (error) {
-                console.error('Error completing task:', error);
-                showToast('Failed to complete task', 'error');
-            }
+            // Load tasks from Firebase (admin-created tasks)
+            loadUserTasks();
         }
 
         // Handle Withdraw
@@ -2145,24 +2534,19 @@
             const withdrawalCount = currentUser.withdrawalCount || 0;
             const referralCount = currentUser.referrals || 0;
             
-            // Check withdrawal limits
-            if (withdrawalCount < 2) {
-                if (withdrawalCount === 0 && amount < 0.5) {
-                    showToast('Minimum withdrawal is $0.50', 'error');
-                    return;
-                }
-                if (withdrawalCount === 1 && amount < 1.0) {
-                    showToast('Minimum withdrawal is $1.00', 'error');
-                    return;
-                }
-            } else if (withdrawalCount >= 3 && referralCount < 1) {
-                showToast('Withdrawal blocked. Complete at least 1 referral to continue.', 'error');
+            // Get admin-set withdrawal conditions
+            const minWithdrawal = currentUser.minWithdrawal || 0.5;
+            const requiredReferrals = currentUser.requiredReferrals || 0;
+            
+            // Check referral requirement
+            if (referralCount < requiredReferrals) {
+                showToast('Withdrawal not available. Please contact support for assistance.', 'error');
                 return;
-            } else if (referralCount >= 1 && withdrawalCount >= 2 && amount < 1.5) {
-                showToast('Minimum withdrawal is $1.50', 'error');
-                return;
-            } else if (referralCount >= 2 && amount < 2.0) {
-                showToast('Minimum withdrawal is $2.00', 'error');
+            }
+            
+            // Check minimum withdrawal
+            if (amount < minWithdrawal) {
+                showToast('Minimum withdrawal amount not met. Please contact support for details.', 'error');
                 return;
             }
             
@@ -2271,25 +2655,36 @@
                 const teamList = document.getElementById('teamList');
                 teamList.innerHTML = '';
                 
-                if (currentUser.team && currentUser.team.length > 0) {
-                    for (const memberId of currentUser.team) {
-                        const memberRef = ref(db, `users/${memberId}`);
-                        const snapshot = await get(memberRef);
-                        
-                        if (snapshot.exists()) {
-                            const member = snapshot.val();
-                            const memberElement = document.createElement('div');
-                            memberElement.className = 'team-member';
-                            memberElement.innerHTML = `
-                                <img src="${member.profilePicture || 'https://via.placeholder.com/40'}" alt="${member.name}">
-                                <div class="team-member-info">
-                                    <h4>${member.name}</h4>
-                                    <p>${member.email}</p>
-                                    <p>Balance: $${member.currentBalance.toFixed(3)}</p>
-                                </div>
-                            `;
-                            teamList.appendChild(memberElement);
-                        }
+                // Get all users who were referred by current user's referral code
+                const usersRef = ref(db, 'users');
+                const snapshot = await get(usersRef);
+                
+                let teamMembers = [];
+                
+                snapshot.forEach((childSnapshot) => {
+                    const user = childSnapshot.val();
+                    // Check if this user was referred by current user's referral code
+                    if (user.referredBy === currentUser.referralCode) {
+                        teamMembers.push({
+                            id: childSnapshot.key,
+                            ...user
+                        });
+                    }
+                });
+                
+                if (teamMembers.length > 0) {
+                    for (const member of teamMembers) {
+                        const memberElement = document.createElement('div');
+                        memberElement.className = 'team-member';
+                        memberElement.innerHTML = `
+                            <img src="${member.profilePicture || 'https://via.placeholder.com/40'}" alt="${member.name}">
+                            <div class="team-member-info">
+                                <h4>${member.name}</h4>
+                                <p>${member.email}</p>
+                                <p>Balance: $${member.currentBalance.toFixed(3)}</p>
+                            </div>
+                        `;
+                        teamList.appendChild(memberElement);
                     }
                 } else {
                     teamList.innerHTML = '<p style="text-align: center; color: #6B7280;">No team members yet. Share your referral link!</p>';
@@ -2686,6 +3081,8 @@
             
             loadAdminStats();
             loadAdminNotifications();
+            loadBanners();
+            loadGlobalWithdrawalSettings();
         }
 
         // Load Admin Stats
@@ -2753,6 +3150,8 @@
             // Load section-specific data
             if (sectionName === 'users') {
                 loadAdminUsers();
+            } else if (sectionName === 'tasks') {
+                loadAdminTasks();
             } else if (sectionName === 'pending-fees') {
                 loadAdminPendingFees();
             } else if (sectionName === 'pending-withdrawals') {
@@ -2793,10 +3192,14 @@
                         <td>${user.whatsapp}</td>
                         <td>${user.city}</td>
                         <td>$${user.currentBalance.toFixed(3)}</td>
+                        <td>$${(user.perTaskEarning || 0.013).toFixed(4)}</td>
                         <td>${user.referrals || 0}</td>
+                        <td>$${(user.minWithdrawal || 0.5).toFixed(2)}</td>
+                        <td>${user.requiredReferrals || 0}</td>
                         <td><span class="status-badge ${user.status}">${user.status}</span></td>
                         <td>
                             <button class="action-btn view" onclick="viewUserDetails('${userId}')">View</button>
+                            <button class="action-btn approve" onclick="editUserSettings('${userId}')">Edit</button>
                         </td>
                     `;
                     usersList.appendChild(row);
@@ -2825,7 +3228,7 @@
                         <p><strong>Country:</strong> ${user.country}</p>
                         <p><strong>Current Balance:</strong> $${user.currentBalance.toFixed(3)}</p>
                         <p><strong>Total Balance:</strong> $${user.totalBalance.toFixed(3)}</p>
-                        <p><strong>Per Task Earning:</strong> $${user.perTaskEarning.toFixed(4)}</p>
+                        <p><strong>Per Task Earning:</strong> $${(user.perTaskEarning || 0.013).toFixed(4)}</p>
                         <p><strong>Referrals:</strong> ${user.referrals || 0}</p>
                         <p><strong>Status:</strong> ${user.status}</p>
                         <p><strong>Registered:</strong> ${new Date(user.createdAt).toLocaleString()}</p>
@@ -2835,6 +3238,287 @@
                 }
             });
         }
+
+        // Edit User Task Earning
+        window.editUserTaskEarning = async function(userId) {
+            get(ref(db, `users/${userId}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const user = snapshot.val();
+                    const modalBody = document.getElementById('modalBody');
+                    modalBody.innerHTML = `
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <img src="${user.profilePicture || 'https://via.placeholder.com/80'}" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px;">
+                            <h4>${user.name}</h4>
+                            <p style="color: #6B7280; font-size: 13px;">${user.email}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Current Per Task Earning</label>
+                            <input type="text" value="$${(user.perTaskEarning || 0.013).toFixed(4)}" readonly style="background: #F3F4F6;">
+                        </div>
+                        <form id="editEarningForm" onsubmit="saveUserTaskEarning(event, '${userId}')">
+                            <div class="form-group">
+                                <label>New Per Task Earning (USD) *</label>
+                                <input type="number" id="newTaskEarning" required step="0.0001" min="0.0001" value="${(user.perTaskEarning || 0.013).toFixed(4)}">
+                                <p style="font-size: 11px; color: #6B7280; margin-top: 5px;">This user will earn this amount for each task they complete</p>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Earning</button>
+                        </form>
+                    `;
+                    document.getElementById('modalTitle').textContent = 'Edit Per Task Earning';
+                    document.getElementById('modal').classList.add('active');
+                }
+            });
+        }
+
+        // Save User Task Earning
+        window.saveUserTaskEarning = async function(e, userId) {
+            e.preventDefault();
+            
+            const newEarning = parseFloat(document.getElementById('newTaskEarning').value);
+            
+            try {
+                await update(ref(db, `users/${userId}`), {
+                    perTaskEarning: newEarning
+                });
+                
+                showToast('Per task earning updated successfully', 'success');
+                closeModal();
+                loadAdminUsers();
+                
+            } catch (error) {
+                console.error('Error updating user task earning:', error);
+                showToast('Failed to update earning', 'error');
+            }
+        }
+
+        // Save Global Withdrawal Settings
+        window.saveGlobalWithdrawalSettings = async function() {
+            const minWithdrawal = parseFloat(document.getElementById('globalMinWithdrawal').value);
+            const requiredReferrals = parseInt(document.getElementById('globalRequiredReferrals').value);
+            
+            try {
+                // Store global settings in Firebase
+                await set(ref(db, 'settings/withdrawal'), {
+                    minWithdrawal: minWithdrawal,
+                    requiredReferrals: requiredReferrals,
+                    updatedAt: Date.now()
+                });
+                
+                showToast('Global withdrawal settings saved successfully!', 'success');
+            } catch (error) {
+                console.error('Error saving withdrawal settings:', error);
+                showToast('Failed to save withdrawal settings', 'error');
+            }
+        };
+
+        // Load Global Withdrawal Settings
+        async function loadGlobalWithdrawalSettings() {
+            try {
+                const settingsRef = ref(db, 'settings/withdrawal');
+                const snapshot = await get(settingsRef);
+                
+                if (snapshot.exists()) {
+                    const settings = snapshot.val();
+                    document.getElementById('globalMinWithdrawal').value = settings.minWithdrawal || 0.50;
+                    document.getElementById('globalRequiredReferrals').value = settings.requiredReferrals || 0;
+                }
+            } catch (error) {
+                console.error('Error loading withdrawal settings:', error);
+            }
+        };
+
+        // Edit User Settings (for per-user withdrawal settings)
+        window.editUserSettings = async function(userId) {
+            get(ref(db, `users/${userId}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const user = snapshot.val();
+                    const modalBody = document.getElementById('modalBody');
+                    modalBody.innerHTML = `
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <img src="${user.profilePicture || 'https://via.placeholder.com/80'}" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px;">
+                            <h4>${user.name}</h4>
+                            <p style="color: #6B7280; font-size: 13px;">${user.email}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Current Min Withdrawal</label>
+                            <input type="text" value="$${(user.minWithdrawal || 0.5).toFixed(2)}" readonly style="background: #F3F4F6;">
+                        </div>
+                        <div class="form-group">
+                            <label>Current Required Referrals</label>
+                            <input type="text" value="${user.requiredReferrals || 0}" readonly style="background: #F3F4F6;">
+                        </div>
+                        <form id="editUserSettingsForm" onsubmit="saveUserSettings(event, '${userId}')">
+                            <div class="form-group">
+                                <label>New Minimum Withdrawal Amount (USD)</label>
+                                <input type="number" id="newMinWithdrawal" required step="0.01" min="0.1" value="${(user.minWithdrawal || 0.5).toFixed(2)}">
+                                <p style="font-size: 11px; color: #6B7280; margin-top: 5px;">Set custom minimum withdrawal for this user (leave blank to use global setting)</p>
+                            </div>
+                            <div class="form-group">
+                                <label>New Required Referrals</label>
+                                <input type="number" id="newRequiredReferrals" required min="0" value="${user.requiredReferrals || 0}">
+                                <p style="font-size: 11px; color: #6B7280; margin-top: 5px;">Set custom required referrals for this user (leave blank to use global setting)</p>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Settings</button>
+                        </form>
+                    `;
+                    document.getElementById('modalTitle').textContent = 'Edit User Withdrawal Settings';
+                    document.getElementById('modal').classList.add('active');
+                }
+            });
+        };
+
+        // Save User Settings
+        window.saveUserSettings = async function(e, userId) {
+            e.preventDefault();
+            
+            const newMinWithdrawal = parseFloat(document.getElementById('newMinWithdrawal').value);
+            const newRequiredReferrals = parseInt(document.getElementById('newRequiredReferrals').value);
+            
+            try {
+                await update(ref(db, `users/${userId}`), {
+                    minWithdrawal: newMinWithdrawal,
+                    requiredReferrals: newRequiredReferrals
+                });
+                
+                showToast('User withdrawal settings updated successfully', 'success');
+                closeModal();
+                loadAdminUsers();
+                
+            } catch (error) {
+                console.error('Error updating user settings:', error);
+                showToast('Failed to update user settings', 'error');
+            }
+        };
+
+        // Banner Management Functions
+        async function loadBanners() {
+            try {
+                const bannersRef = ref(db, 'banners');
+                const snapshot = await get(bannersRef);
+                
+                const bannerPreviewGrid = document.getElementById('bannerPreviewGrid');
+                bannerPreviewGrid.innerHTML = '';
+                
+                if (snapshot.exists()) {
+                    const bannersData = snapshot.val();
+                    banners = Object.entries(bannersData).map(([id, url]) => ({ id, url }));
+                    
+                    for (const banner of banners) {
+                        const bannerItem = document.createElement('div');
+                        bannerItem.className = 'banner-preview-item';
+                        bannerItem.innerHTML = `
+                            <img src="${banner.url}" alt="Banner">
+                            <button class="delete-banner-btn" onclick="deleteBanner('${banner.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        `;
+                        bannerPreviewGrid.appendChild(bannerItem);
+                    }
+                } else {
+                    bannerPreviewGrid.innerHTML = '<p style="text-align: center; color: #6B7280;">No banners uploaded yet.</p>';
+                }
+            } catch (error) {
+                console.error('Error loading banners:', error);
+            }
+        }
+
+        // Load Banners for User Dashboard
+        async function loadBannersForUser() {
+            try {
+                const bannersRef = ref(db, 'banners');
+                const snapshot = await get(bannersRef);
+                
+                const bannerSlider = document.getElementById('bannerSlider');
+                
+                if (snapshot.exists()) {
+                    const bannersData = snapshot.val();
+                    const bannerUrls = Object.values(bannersData);
+                    
+                    if (bannerUrls.length > 0) {
+                        bannerSlider.innerHTML = '';
+                        const dotsDiv = document.createElement('div');
+                        dotsDiv.className = 'banner-dots';
+                        
+                        bannerUrls.forEach((url, index) => {
+                            const slideDiv = document.createElement('div');
+                            slideDiv.className = `banner-slide ${index === 0 ? 'active' : ''}`;
+                            slideDiv.innerHTML = `<img src="${url}" alt="Banner ${index + 1}" class="banner-image">`;
+                            bannerSlider.appendChild(slideDiv);
+                            
+                            const dotSpan = document.createElement('span');
+                            dotSpan.className = `dot ${index === 0 ? 'active' : ''}`;
+                            dotSpan.onclick = () => goToSlide(index);
+                            dotsDiv.appendChild(dotSpan);
+                        });
+                        
+                        bannerSlider.appendChild(dotsDiv);
+                        
+                        // Reset slider
+                        currentBannerSlide = 0;
+                        startBannerSlider();
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading banners for user:', error);
+            }
+        }
+
+        // Handle Banner Upload
+        window.handleBannerUpload = async function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                showToast('Please select an image file', 'error');
+                return;
+            }
+            
+            // Validate file size (max 2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                showToast('Image size should be less than 2MB', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const base64 = e.target.result;
+                
+                try {
+                    showToast('Uploading banner...', 'warning');
+                    
+                    // Push to Firebase
+                    const bannersRef = ref(db, 'banners');
+                    const newBannerRef = push(bannersRef);
+                    await set(newBannerRef, base64);
+                    
+                    showToast('Banner uploaded successfully!', 'success');
+                    loadBanners();
+                    
+                } catch (error) {
+                    console.error('Error uploading banner:', error);
+                    showToast('Failed to upload banner', 'error');
+                }
+            };
+            reader.readAsDataURL(file);
+            
+            // Reset input
+            event.target.value = '';
+        };
+
+        // Delete Banner
+        window.deleteBanner = async function(bannerId) {
+            if (!confirm('Are you sure you want to delete this banner?')) return;
+            
+            try {
+                await remove(ref(db, `banners/${bannerId}`));
+                showToast('Banner deleted successfully', 'success');
+                loadBanners();
+            } catch (error) {
+                console.error('Error deleting banner:', error);
+                showToast('Failed to delete banner', 'error');
+            }
+        };
 
         // Load Admin Pending Fees
         async function loadAdminPendingFees() {
@@ -3454,6 +4138,536 @@
             showToast('Logged out successfully', 'success');
         }
 
+        // ==================== TASK MANAGEMENT SYSTEM ====================
+
+        // Load Admin Tasks
+        async function loadAdminTasks() {
+            try {
+                const tasksRef = ref(db, 'tasks');
+                const snapshot = await get(tasksRef);
+                
+                const tasksList = document.getElementById('adminTasksList');
+                tasksList.innerHTML = '';
+                
+                if (snapshot.exists()) {
+                    const tasks = [];
+                    snapshot.forEach((childSnapshot) => {
+                        tasks.push({
+                            id: childSnapshot.key,
+                            ...childSnapshot.val()
+                        });
+                    });
+                    
+                    // Sort by creation date (newest first)
+                    tasks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                    
+                    tasks.forEach(task => {
+                        const platformIcon = getPlatformIcon(task.platform);
+                        const taskItem = document.createElement('div');
+                        taskItem.className = `admin-task-item ${task.active ? '' : 'inactive'}`;
+                        taskItem.innerHTML = `
+                            <div class="admin-task-header">
+                                <div>
+                                    <span class="task-platform-badge ${task.platform}">${task.platform}</span>
+                                    <span class="admin-task-title" style="margin-left: 10px;">${task.title}</span>
+                                </div>
+                                <div class="admin-task-actions">
+                                    <button class="action-btn view" onclick="editTask('${task.id}')">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                    <button class="action-btn reject" onclick="deleteTask('${task.id}')">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="admin-task-details">
+                                <p><strong>Description:</strong> ${task.description || 'No description'}</p>
+                                <p><strong>Task Type:</strong> ${task.taskType || 'N/A'}</p>
+                                <p><strong>Link:</strong> <a href="${task.link}" target="_blank" style="color: var(--secondary);">${task.link}</a></p>
+                                <p><strong>Earning:</strong> <span class="admin-task-earning">$${task.earning.toFixed(4)}</span></p>
+                                <p><strong>Status:</strong> ${task.active ? '<span style="color: var(--success);">Active</span>' : '<span style="color: var(--danger);">Inactive</span>'}</p>
+                                <p><strong>Created:</strong> ${new Date(task.createdAt).toLocaleString()}</p>
+                            </div>
+                        `;
+                        tasksList.appendChild(taskItem);
+                    });
+                } else {
+                    tasksList.innerHTML = '<p style="text-align: center; color: #6B7280; padding: 20px;">No tasks created yet. Click "Add New Task" to create one.</p>';
+                }
+            } catch (error) {
+                console.error('Error loading admin tasks:', error);
+                showToast('Failed to load tasks', 'error');
+            }
+        }
+
+        // Get Platform Icon
+        function getPlatformIcon(platform) {
+            const icons = {
+                youtube: '<i class="fab fa-youtube task-platform-icon youtube"></i>',
+                facebook: '<i class="fab fa-facebook task-platform-icon facebook"></i>',
+                instagram: '<i class="fab fa-instagram task-platform-icon instagram"></i>',
+                whatsapp: '<i class="fab fa-whatsapp task-platform-icon whatsapp"></i>'
+            };
+            return icons[platform] || '<i class="fas fa-link"></i>';
+        }
+
+        // Show Add Task Modal
+        window.showAddTaskModal = function() {
+            const modalBody = document.getElementById('modalBody');
+            modalBody.innerHTML = `
+                <form id="addTaskForm" onsubmit="saveTask(event)">
+                    <div class="task-form-group">
+                        <label>Task Title *</label>
+                        <input type="text" id="taskTitle" required placeholder="e.g., Subscribe to YouTube Channel">
+                    </div>
+                    <div class="task-form-group">
+                        <label>Description</label>
+                        <textarea id="taskDescription" rows="2" placeholder="Task description (optional)"></textarea>
+                    </div>
+                    <div class="task-form-group">
+                        <label>Platform *</label>
+                        <select id="taskPlatform" required onchange="updateTaskTypeOptions()">
+                            <option value="">Select Platform</option>
+                            <option value="youtube">YouTube</option>
+                            <option value="facebook">Facebook</option>
+                            <option value="instagram">Instagram</option>
+                            <option value="whatsapp">WhatsApp</option>
+                        </select>
+                    </div>
+                    <div class="task-form-group">
+                        <label>Task Type *</label>
+                        <select id="taskType" required>
+                            <option value="">Select Task Type</option>
+                        </select>
+                    </div>
+                    <div class="task-form-group">
+                        <label>Link URL *</label>
+                        <input type="url" id="taskLink" required placeholder="https://...">
+                    </div>
+                    <div class="task-form-group">
+                        <label>Earning Amount (USD) *</label>
+                        <input type="number" id="taskEarning" required step="0.0001" min="0.0001" placeholder="e.g., 0.0130">
+                    </div>
+                    <div class="task-form-group">
+                        <label>
+                            <input type="checkbox" id="taskActive" checked> Task Active (visible to users)
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Task</button>
+                </form>
+            `;
+            document.getElementById('modalTitle').textContent = 'Add New Task';
+            document.getElementById('modal').classList.add('active');
+        }
+
+        // Update Task Type Options based on Platform
+        window.updateTaskTypeOptions = function() {
+            const platform = document.getElementById('taskPlatform').value;
+            const taskTypeSelect = document.getElementById('taskType');
+            
+            const options = {
+                youtube: [
+                    '<option value="">Select Task Type</option>',
+                    '<option value="subscribe">Subscribe to Channel</option>',
+                    '<option value="watch_video">Watch Video</option>',
+                    '<option value="like_video">Like Video</option>',
+                    '<option value="comment">Comment on Video</option>'
+                ],
+                facebook: [
+                    '<option value="">Select Task Type</option>',
+                    '<option value="like_page">Like Page</option>',
+                    '<option value="follow">Follow Profile</option>',
+                    '<option value="watch_video">Watch Video</option>',
+                    '<option value="like_post">Like Post</option>',
+                    '<option value="comment">Comment on Post</option>',
+                    '<option value="share">Share Post</option>'
+                ],
+                instagram: [
+                    '<option value="">Select Task Type</option>',
+                    '<option value="follow">Follow Profile</option>',
+                    '<option value="like_post">Like Post</option>',
+                    '<option value="comment">Comment on Post</option>',
+                    '<option value="save_post">Save Post</option>'
+                ],
+                whatsapp: [
+                    '<option value="">Select Task Type</option>',
+                    '<option value="join_channel">Join Channel</option>',
+                    '<option value="follow">Follow Channel</option>'
+                ]
+            };
+            
+            taskTypeSelect.innerHTML = options[platform]?.join('') || '<option value="">Select Task Type</option>';
+        }
+
+        // Save Task
+        window.saveTask = async function(e, taskId = null) {
+            e.preventDefault();
+            
+            const title = document.getElementById('taskTitle').value.trim();
+            const description = document.getElementById('taskDescription').value.trim();
+            const platform = document.getElementById('taskPlatform').value;
+            const taskType = document.getElementById('taskType').value;
+            const link = document.getElementById('taskLink').value.trim();
+            const earning = parseFloat(document.getElementById('taskEarning').value);
+            const active = document.getElementById('taskActive').checked;
+            
+            try {
+                const taskData = {
+                    title,
+                    description,
+                    platform,
+                    taskType,
+                    link,
+                    earning,
+                    active,
+                    updatedAt: new Date().toISOString()
+                };
+                
+                if (taskId) {
+                    // Update existing task
+                    await update(ref(db, `tasks/${taskId}`), taskData);
+                    showToast('Task updated successfully', 'success');
+                } else {
+                    // Create new task
+                    taskData.createdAt = new Date().toISOString();
+                    const taskRef = push(ref(db, 'tasks'));
+                    await set(taskRef, taskData);
+                    showToast('Task created successfully', 'success');
+                }
+                
+                closeModal();
+                loadAdminTasks();
+                
+            } catch (error) {
+                console.error('Error saving task:', error);
+                showToast('Failed to save task', 'error');
+            }
+        }
+
+        // Edit Task
+        window.editTask = async function(taskId) {
+            try {
+                const taskSnapshot = await get(ref(db, `tasks/${taskId}`));
+                if (taskSnapshot.exists()) {
+                    const task = taskSnapshot.val();
+                    
+                    const modalBody = document.getElementById('modalBody');
+                    modalBody.innerHTML = `
+                        <form id="addTaskForm" onsubmit="saveTask(event, '${taskId}')">
+                            <div class="task-form-group">
+                                <label>Task Title *</label>
+                                <input type="text" id="taskTitle" required value="${task.title}">
+                            </div>
+                            <div class="task-form-group">
+                                <label>Description</label>
+                                <textarea id="taskDescription" rows="2">${task.description || ''}</textarea>
+                            </div>
+                            <div class="task-form-group">
+                                <label>Platform *</label>
+                                <select id="taskPlatform" required onchange="updateTaskTypeOptions()">
+                                    <option value="youtube" ${task.platform === 'youtube' ? 'selected' : ''}>YouTube</option>
+                                    <option value="facebook" ${task.platform === 'facebook' ? 'selected' : ''}>Facebook</option>
+                                    <option value="instagram" ${task.platform === 'instagram' ? 'selected' : ''}>Instagram</option>
+                                    <option value="whatsapp" ${task.platform === 'whatsapp' ? 'selected' : ''}>WhatsApp</option>
+                                </select>
+                            </div>
+                            <div class="task-form-group">
+                                <label>Task Type *</label>
+                                <select id="taskType" required>
+                                    <option value="">Select Task Type</option>
+                                </select>
+                            </div>
+                            <div class="task-form-group">
+                                <label>Link URL *</label>
+                                <input type="url" id="taskLink" required value="${task.link}">
+                            </div>
+                            <div class="task-form-group">
+                                <label>Earning Amount (USD) *</label>
+                                <input type="number" id="taskEarning" required step="0.0001" min="0.0001" value="${task.earning}">
+                            </div>
+                            <div class="task-form-group">
+                                <label>
+                                    <input type="checkbox" id="taskActive" ${task.active ? 'checked' : ''}> Task Active (visible to users)
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Task</button>
+                        </form>
+                    `;
+                    document.getElementById('modalTitle').textContent = 'Edit Task';
+                    document.getElementById('modal').classList.add('active');
+                    
+                    // Update task type options and set selected value
+                    setTimeout(() => {
+                        updateTaskTypeOptions();
+                        setTimeout(() => {
+                            document.getElementById('taskType').value = task.taskType;
+                        }, 100);
+                    }, 100);
+                }
+            } catch (error) {
+                console.error('Error loading task for edit:', error);
+                showToast('Failed to load task', 'error');
+            }
+        }
+
+        // Delete Task
+        window.deleteTask = async function(taskId) {
+            if (confirm('Are you sure you want to delete this task?')) {
+                try {
+                    await remove(ref(db, `tasks/${taskId}`));
+                    showToast('Task deleted successfully', 'success');
+                    loadAdminTasks();
+                } catch (error) {
+                    console.error('Error deleting task:', error);
+                    showToast('Failed to delete task', 'error');
+                }
+            }
+        }
+
+        // ==================== USER TASK SYSTEM ====================
+
+        // Load User Tasks from Firebase
+        async function loadUserTasks() {
+            try {
+                const tasksRef = ref(db, 'tasks');
+                const snapshot = await get(tasksRef);
+                
+                const tasksGrid = document.getElementById('tasksGrid');
+                tasksGrid.innerHTML = '';
+                
+                if (snapshot.exists()) {
+                    const tasks = [];
+                    snapshot.forEach((childSnapshot) => {
+                        const task = childSnapshot.val();
+                        if (task.active) {
+                            tasks.push({
+                                id: childSnapshot.key,
+                                ...task
+                            });
+                        }
+                    });
+                    
+                    // Sort by creation date (newest first)
+                    tasks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                    
+                    if (tasks.length === 0) {
+                        tasksGrid.innerHTML = '<p style="text-align: center; color: #6B7280; padding: 20px; grid-column: 1/-1;">No tasks available at the moment. Please check back later.</p>';
+                        return;
+                    }
+                    
+                    tasks.forEach(task => {
+                        const isCompleted = currentUser.completedTasks && currentUser.completedTasks.includes(task.id);
+                        const platformIcon = getPlatformIconSmall(task.platform);
+                        const earning = (currentUser.perTaskEarning || 0.013) * task.earning;
+                        
+                        const taskCard = document.createElement('div');
+                        taskCard.className = `task-card ${isCompleted ? 'completed' : ''}`;
+                        taskCard.innerHTML = `
+                            <div style="padding: 15px; text-align: center;">
+                                ${platformIcon}
+                                <h4 style="font-size: 14px; color: var(--text-dark); margin-bottom: 8px;">${task.title}</h4>
+                                <p style="font-size: 11px; color: #6B7280; margin-bottom: 8px;">${task.taskType?.replace('_', ' ') || ''}</p>
+                                <button class="task-btn" onclick="openTaskLink('${task.id}')" ${isCompleted ? 'disabled' : ''}>
+                                    ${isCompleted ? 'Completed' : 'Complete Task'}
+                                </button>
+                            </div>
+                        `;
+                        
+                        tasksGrid.appendChild(taskCard);
+                    });
+                } else {
+                    tasksGrid.innerHTML = '<p style="text-align: center; color: #6B7280; padding: 20px; grid-column: 1/-1;">No tasks available at the moment. Please check back later.</p>';
+                }
+            } catch (error) {
+                console.error('Error loading user tasks:', error);
+            }
+        }
+
+        // Get Small Platform Icon
+        function getPlatformIconSmall(platform) {
+            const icons = {
+                youtube: '<i class="fab fa-youtube" style="font-size: 32px; color: #FF0000; margin-bottom: 10px;"></i>',
+                facebook: '<i class="fab fa-facebook" style="font-size: 32px; color: #1877F2; margin-bottom: 10px;"></i>',
+                instagram: '<i class="fab fa-instagram" style="font-size: 32px; color: #E4405F; margin-bottom: 10px;"></i>',
+                whatsapp: '<i class="fab fa-whatsapp" style="font-size: 32px; color: #25D366; margin-bottom: 10px;"></i>'
+            };
+            return icons[platform] || '<i class="fas fa-link" style="font-size: 32px; color: var(--primary); margin-bottom: 10px;"></i>';
+        }
+
+        // Track if user has clicked/opened the task link
+        let taskLinkOpened = {};
+        let videoWatched = {};
+
+        // Open Task Link
+        window.openTaskLink = async function(taskId) {
+            try {
+                const taskSnapshot = await get(ref(db, `tasks/${taskId}`));
+                if (taskSnapshot.exists()) {
+                    const task = taskSnapshot.val();
+                    
+                    // Reset tracking for this task
+                    taskLinkOpened[taskId] = false;
+                    videoWatched[taskId] = false;
+                    
+                    // Show task completion modal
+                    const taskModalBody = document.getElementById('taskModalBody');
+                    const earning = (currentUser.perTaskEarning || 0.013) * task.earning;
+                    
+                    const isVideoTask = task.taskType === 'watch_video';
+                    
+                    taskModalBody.innerHTML = `
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            ${getPlatformIconSmall(task.platform)}
+                            <h4 style="margin-top: 10px;">${task.title}</h4>
+                            <p style="color: #6B7280; font-size: 13px;">${task.description || ''}</p>
+                            <div id="earningStatus" style="margin-top: 15px; padding: 10px; border-radius: 8px; background: #FEF3C7; color: #92400E; font-size: 13px;">
+                                <i class="fas fa-exclamation-triangle"></i> 
+                                <span id="statusText">${isVideoTask ? 'Please open and watch the video first to get earning' : 'Please open the link first to get earning'}</span>
+                            </div>
+                        </div>
+                        <div style="background: #F9FAFB; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                            <p style="font-size: 13px; color: var(--text-dark); margin-bottom: 10px;">
+                                <strong>Instructions:</strong>
+                            </p>
+                            <ol style="font-size: 13px; color: #6B7280; padding-left: 20px; line-height: 1.8;">
+                                <li>Click "Open Link" button below</li>
+                                ${isVideoTask ? '<li>Watch the video completely</li>' : ''}
+                                <li>Complete the required action (${task.taskType?.replace('_', ' ') || 'follow instructions'})</li>
+                                <li>Return here and click "Verify & Get Reward"</li>
+                            </ol>
+                            <p style="font-size: 12px; color: #EF4444; margin-top: 10px;">
+                                <strong>⚠️ Important:</strong> ${isVideoTask ? 'You must watch the video first. ' : ''}Earning will only be credited if you open the link!
+                            </p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <a href="${task.link}" target="_blank" class="btn btn-secondary" style="text-decoration: none; flex: 1;" onclick="markLinkOpened('${taskId}', ${isVideoTask})">
+                                <i class="fas fa-external-link-alt"></i> Open Link
+                            </a>
+                            <button id="verifyBtn" class="btn btn-primary" style="flex: 1; opacity: 0.5; cursor: not-allowed;" disabled onclick="completeUserTask('${taskId}', ${earning})">
+                                <i class="fas fa-check"></i> Verify & Get Reward
+                            </button>
+                        </div>
+                    `;
+                    
+                    document.getElementById('taskModalTitle').textContent = 'Complete Task';
+                    document.getElementById('taskCompletionModal').classList.add('active');
+                }
+            } catch (error) {
+                console.error('Error opening task:', error);
+                showToast('Failed to load task', 'error');
+            }
+        }
+
+        // Mark Link as Opened
+        window.markLinkOpened = function(taskId, isVideoTask) {
+            taskLinkOpened[taskId] = true;
+            
+            if (isVideoTask) {
+                // For video tasks, show a timer/confirmation after opening
+                setTimeout(() => {
+                    videoWatched[taskId] = true;
+                    enableVerifyButton(taskId);
+                }, 3000); // Wait 3 seconds to simulate video watching
+            } else {
+                // For non-video tasks, enable verify button immediately after link click
+                setTimeout(() => {
+                    enableVerifyButton(taskId);
+                }, 1000); // Small delay to ensure link was actually opened
+            }
+        }
+
+        // Enable Verify Button
+        function enableVerifyButton(taskId) {
+            const verifyBtn = document.getElementById('verifyBtn');
+            const statusDiv = document.getElementById('earningStatus');
+            const statusText = document.getElementById('statusText');
+            
+            if (verifyBtn) {
+                verifyBtn.disabled = false;
+                verifyBtn.style.opacity = '1';
+                verifyBtn.style.cursor = 'pointer';
+            }
+            
+            if (statusDiv) {
+                statusDiv.style.background = '#D1FAE5';
+                statusDiv.style.color = '#065F46';
+            }
+            
+            if (statusText) {
+                statusText.innerHTML = '<i class="fas fa-check-circle"></i> Link opened! You can now verify and claim your reward.';
+            }
+        }
+
+        // Complete User Task
+        window.completeUserTask = async function(taskId, earning) {
+            try {
+                // Check if task is already completed
+                if (currentUser.completedTasks && currentUser.completedTasks.includes(taskId)) {
+                    showToast('Task already completed', 'error');
+                    return;
+                }
+                
+                // Check if link was opened - CRITICAL CHECK
+                if (!taskLinkOpened[taskId]) {
+                    showToast('⚠️ You must open the link first to get earning!', 'error');
+                    return;
+                }
+                
+                // For video tasks, check if video was watched
+                const taskSnapshot = await get(ref(db, `tasks/${taskId}`));
+                if (taskSnapshot.exists()) {
+                    const task = taskSnapshot.val();
+                    if (task.taskType === 'watch_video' && !videoWatched[taskId]) {
+                        showToast('⚠️ You must watch the video first to get earning!', 'error');
+                        return;
+                    }
+                }
+                
+                const completedTasks = currentUser.completedTasks || [];
+                completedTasks.push(taskId);
+                
+                const newBalance = currentUser.currentBalance + earning;
+                const newTotalBalance = currentUser.totalBalance + earning;
+                
+                await update(ref(db, `users/${currentUserId}`), {
+                    completedTasks,
+                    tasksCompleted: completedTasks.length,
+                    currentBalance: newBalance,
+                    totalBalance: newTotalBalance
+                });
+                
+                currentUser.completedTasks = completedTasks;
+                currentUser.tasksCompleted = completedTasks.length;
+                currentUser.currentBalance = newBalance;
+                currentUser.totalBalance = newTotalBalance;
+                
+                // Clear tracking
+                delete taskLinkOpened[taskId];
+                delete videoWatched[taskId];
+                
+                updateDashboardUI();
+                loadUserTasks();
+                closeTaskModal();
+                showToast(`🎉 Task completed! Earned $${earning.toFixed(4)}`, 'success');
+                
+            } catch (error) {
+                console.error('Error completing task:', error);
+                showToast('Failed to complete task', 'error');
+            }
+        }
+
+        // Close Task Modal
+        window.closeTaskModal = function() {
+            document.getElementById('taskCompletionModal').classList.remove('active');
+        }
+
+        // Close task modal on outside click
+        document.getElementById('taskCompletionModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeTaskModal();
+            }
+        });
+
         // ==================== UTILITY FUNCTIONS ====================
 
         // File to Base64
@@ -3526,7 +4740,6 @@
         });
 
         // Export functions to window
-        window.completeTask = completeTask;
         window.claimLevelBonus = claimLevelBonus;
         window.uploadProfilePicture = uploadProfilePicture;
         window.sendChatMessage = sendChatMessage;
@@ -3538,6 +4751,8 @@
         window.showAdminSection = showAdminSection;
         window.hideAdminSection = hideAdminSection;
         window.viewUserDetails = viewUserDetails;
+        window.editUserTaskEarning = editUserTaskEarning;
+        window.saveUserTaskEarning = saveUserTaskEarning;
         window.viewScreenshot = viewScreenshot;
         window.approveRegistrationFee = approveRegistrationFee;
         window.rejectRegistrationFee = rejectRegistrationFee;
@@ -3549,6 +4764,14 @@
         window.adminLogout = adminLogout;
         window.previewScreenshot = previewScreenshot;
         window.closeModal = closeModal;
+        window.showAddTaskModal = showAddTaskModal;
+        window.editTask = editTask;
+        window.deleteTask = deleteTask;
+        window.saveTask = saveTask;
+        window.updateTaskTypeOptions = updateTaskTypeOptions;
+        window.openTaskLink = openTaskLink;
+        window.completeUserTask = completeUserTask;
+        window.closeTaskModal = closeTaskModal;
     </script>
 </body>
 </html>
