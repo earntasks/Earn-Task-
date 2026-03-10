@@ -1100,6 +1100,7 @@
         .task-platform-icon.facebook { color: #1877F2; }
         .task-platform-icon.instagram { color: #E4405F; }
         .task-platform-icon.whatsapp { color: #25D366; }
+        .task-platform-icon.tiktok { color: #000000; }
 
         .task-platform-badge {
             padding: 4px 12px;
@@ -1113,6 +1114,7 @@
         .task-platform-badge.facebook { background: #DBEAFE; color: #2563EB; }
         .task-platform-badge.instagram { background: #FCE7F3; color: #DB2777; }
         .task-platform-badge.whatsapp { background: #D1FAE5; color: #059669; }
+        .task-platform-badge.tiktok { background: #000000; color: #FFFFFF; }
 
         .admin-task-item {
             background: #F9FAFB;
@@ -4714,7 +4716,8 @@
                 youtube: '<i class="fab fa-youtube task-platform-icon youtube"></i>',
                 facebook: '<i class="fab fa-facebook task-platform-icon facebook"></i>',
                 instagram: '<i class="fab fa-instagram task-platform-icon instagram"></i>',
-                whatsapp: '<i class="fab fa-whatsapp task-platform-icon whatsapp"></i>'
+                whatsapp: '<i class="fab fa-whatsapp task-platform-icon whatsapp"></i>',
+                tiktok: '<i class="fab fa-tiktok task-platform-icon tiktok"></i>'
             };
             return icons[platform] || '<i class="fas fa-link"></i>';
         }
@@ -4740,6 +4743,7 @@
                             <option value="facebook">Facebook</option>
                             <option value="instagram">Instagram</option>
                             <option value="whatsapp">WhatsApp</option>
+                            <option value="tiktok">TikTok</option>
                         </select>
                     </div>
                     <div class="task-form-group">
@@ -4801,6 +4805,14 @@
                     '<option value="">Select Task Type</option>',
                     '<option value="join_channel">Join Channel</option>',
                     '<option value="follow">Follow Channel</option>'
+                ],
+                tiktok: [
+                    '<option value="">Select Task Type</option>',
+                    '<option value="follow">Follow Profile</option>',
+                    '<option value="like_video">Like Video</option>',
+                    '<option value="watch_video">Watch Video</option>',
+                    '<option value="comment">Comment on Video</option>',
+                    '<option value="share">Share Video</option>'
                 ]
             };
             
@@ -4877,6 +4889,7 @@
                                     <option value="facebook" ${task.platform === 'facebook' ? 'selected' : ''}>Facebook</option>
                                     <option value="instagram" ${task.platform === 'instagram' ? 'selected' : ''}>Instagram</option>
                                     <option value="whatsapp" ${task.platform === 'whatsapp' ? 'selected' : ''}>WhatsApp</option>
+                                    <option value="tiktok" ${task.platform === 'tiktok' ? 'selected' : ''}>TikTok</option>
                                 </select>
                             </div>
                             <div class="task-form-group">
@@ -5001,7 +5014,8 @@
                 youtube: '<i class="fab fa-youtube" style="font-size: 32px; color: #FF0000; margin-bottom: 10px;"></i>',
                 facebook: '<i class="fab fa-facebook" style="font-size: 32px; color: #1877F2; margin-bottom: 10px;"></i>',
                 instagram: '<i class="fab fa-instagram" style="font-size: 32px; color: #E4405F; margin-bottom: 10px;"></i>',
-                whatsapp: '<i class="fab fa-whatsapp" style="font-size: 32px; color: #25D366; margin-bottom: 10px;"></i>'
+                whatsapp: '<i class="fab fa-whatsapp" style="font-size: 32px; color: #25D366; margin-bottom: 10px;"></i>',
+                tiktok: '<i class="fab fa-tiktok" style="font-size: 32px; color: #000000; margin-bottom: 10px;"></i>'
             };
             return icons[platform] || '<i class="fas fa-link" style="font-size: 32px; color: var(--primary); margin-bottom: 10px;"></i>';
         }
