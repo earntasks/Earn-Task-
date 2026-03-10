@@ -2695,6 +2695,9 @@
                     
                     // Listen for real-time updates
                     setupRealtimeListeners();
+                    
+                    // Start midnight reset scheduler
+                    scheduleMidnightReset();
                 }
             } catch (error) {
                 console.error('Error loading user data:', error);
@@ -2702,13 +2705,15 @@
             }
         }
 
-        // Check Task Reset
+        // Check Task Reset - Daily tasks reset at 12:00 AM (midnight)
         async function checkTaskReset() {
-            const today = new Date().toDateString();
+            const now = new Date();
+            const today = now.toDateString();
             const lastReset = currentUser.lastTaskReset;
             
+            // Check if we need to reset (new day after 12:00 AM)
             if (lastReset !== today) {
-                // Reset tasks
+                // Reset tasks for new day
                 await update(ref(db, `users/${currentUserId}`), {
                     completedTasks: [],
                     tasksCompleted: 0,
@@ -2719,8 +2724,10 @@
                 currentUser.tasksCompleted = 0;
                 currentUser.lastTaskReset = today;
                 
-                // Decrease task earnings if no referrals today
-                if (taskEarnings > 0.00005 && (!currentUser.lastReferralDate || new Date(currentUser.lastReferralDate).toDateString() !== today)) {
+                showToast('🌅 New day! Your daily tasks have been reset.', 'success');
+                
+                // Decrease task earnings if no referrals today (only for normal users)
+                if (currentUser.userType !== 'special' && taskEarnings > 0.00005 && (!currentUser.lastReferralDate || new Date(currentUser.lastReferralDate).toDateString() !== today)) {
                     const newEarning = Math.max(0.00005, taskEarnings - 0.001);
                     await update(ref(db, `users/${currentUserId}`), {
                         perTaskEarning: newEarning
@@ -2728,6 +2735,44 @@
                     taskEarnings = newEarning;
                 }
             }
+        }
+        
+        // Schedule midnight reset check - runs every minute to check if it's midnight
+        function scheduleMidnightReset() {
+            setInterval(async () => {
+                const now = new Date();
+                const hours = now.getHours();
+                const minutes = now.getMinutes();
+                
+                // Check if it's midnight (12:00 AM)
+                if (hours === 0 && minutes === 0) {
+                    const today = now.toDateString();
+                    
+                    // Reset tasks for current user
+                    if (currentUser && currentUserId) {
+                        // Check special user earning rate
+                        const userEarningRate = currentUser.userType === 'special' 
+                            ? (currentUser.specialTaskEarning || currentUser.perTaskEarning || 0.013)
+                            : (currentUser.perTaskEarning || 0.013);
+                        
+                        await update(ref(db, `users/${currentUserId}`), {
+                            completedTasks: [],
+                            tasksCompleted: 0,
+                            lastTaskReset: today
+                        });
+                        
+                        currentUser.completedTasks = [];
+                        currentUser.tasksCompleted = 0;
+                        currentUser.lastTaskReset = today;
+                        
+                        showToast('🌅 Midnight! Your daily tasks have been reset.', 'success');
+                        
+                        // Reload tasks
+                        loadUserTasks();
+                        updateDashboardUI();
+                    }
+                }
+            }, 60000); // Check every minute
         }
 
         // Update Dashboard UI
@@ -3329,6 +3374,12 @@
                     // Update dashboard UI if visible
                     updateDashboardUI();
                 }
+            });
+
+            // Listen for banner changes - real-time update when admin uploads new banner
+            const bannersRef = ref(db, 'banners');
+            onValue(bannersRef, (snapshot) => {
+                loadBannersForUser();
             });
         }
 
@@ -3947,8 +3998,9 @@
                     const newBannerRef = push(bannersRef);
                     await set(newBannerRef, base64);
                     
-                    showToast('Banner uploaded successfully!', 'success');
+                    showToast('Banner uploaded successfully! Users will see it immediately.', 'success');
                     loadBanners();
+                    // Real-time listener will automatically update user dashboard
                     
                 } catch (error) {
                     console.error('Error uploading banner:', error);
@@ -3967,8 +4019,9 @@
             
             try {
                 await remove(ref(db, `banners/${bannerId}`));
-                showToast('Banner deleted successfully', 'success');
+                showToast('Banner deleted successfully! Updated on user dashboard.', 'success');
                 loadBanners();
+                // Real-time listener will automatically update user dashboard
             } catch (error) {
                 console.error('Error deleting banner:', error);
                 showToast('Failed to delete banner', 'error');
