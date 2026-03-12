@@ -1540,6 +1540,15 @@
 <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
 </head>
 <body>
+
+    <!-- Notification Sounds -->
+    <audio id="adminNotificationSound" preload="auto">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="userNotificationSound" preload="auto">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2870/2870-preview.mp3" type="audio/mpeg">
+    </audio>
+    
     <!-- Toast Notification -->
     <div class="toast" id="toast"></div>
 
@@ -2973,6 +2982,10 @@
                     loadBannersForUser();
                     loadLightingStripForUser();
                     
+                    // Setup notification listeners with sound
+                    setupChatListener();
+                    setupUserNotificationListener();
+                    
                     // Listen for real-time updates
                     setupRealtimeListeners();
                     
@@ -3428,6 +3441,17 @@
                     read: false
                 });
                 
+                // Create notification for admin
+                const adminNotificationRef = push(ref(db, 'adminNotifications'));
+                await set(adminNotificationRef, {
+                    title: 'New Support Message',
+                    message: `${currentUser.name || 'User'}: ${message.substring(0, 30)}${message.length > 30 ? '...' : ''}`,
+                    timestamp: new Date().toISOString(),
+                    read: false,
+                    type: 'chat',
+                    userId: currentUserId
+                });
+                
                 input.value = '';
                 loadChatMessages();
                 
@@ -3510,6 +3534,109 @@
             } catch (error) {
                 console.error('Error loading chat messages:', error);
             }
+        }
+
+        // Play notification sound for user
+        function playUserNotificationSound() {
+            try {
+                const audio = document.getElementById('userNotificationSound');
+                if (audio) {
+                    audio.currentTime = 0;
+                    audio.play().catch(e => console.log('Audio play failed:', e));
+                }
+            } catch (error) {
+                console.log('Error playing sound:', error);
+            }
+        }
+        
+        // Play notification sound for admin
+        function playAdminNotificationSound() {
+            try {
+                const audio = document.getElementById('adminNotificationSound');
+                if (audio) {
+                    audio.currentTime = 0;
+                    audio.play().catch(e => console.log('Audio play failed:', e));
+                }
+            } catch (error) {
+                console.log('Error playing sound:', error);
+            }
+        }
+        
+        // Track last notification timestamp for user
+        let lastUserNotificationTime = null;
+        
+        // Track last notification timestamp for admin
+        let lastAdminNotificationTime = null;
+        
+        // Track last chat message time for user
+        let lastChatMessageTime = null;
+        
+        // Setup real-time notification listener for user
+        function setupUserNotificationListener() {
+            if (!currentUserId) return;
+            
+            const notificationsRef = ref(db, `users/${currentUserId}/notifications`);
+            onValue(notificationsRef, (snapshot) => {
+                if (snapshot.exists() && lastUserNotificationTime !== null) {
+                    let newNotification = false;
+                    snapshot.forEach((childSnapshot) => {
+                        const notif = childSnapshot.val();
+                        const notifTime = new Date(notif.timestamp).getTime();
+                        
+                        if (notifTime > lastUserNotificationTime && !notif.read) {
+                            newNotification = true;
+                            lastUserNotificationTime = notifTime;
+                        }
+                    });
+                    
+                    if (newNotification) {
+                        playUserNotificationSound();
+                        loadNotifications();
+                    }
+                }
+                
+                // Update last notification time
+                let maxTime = 0;
+                snapshot.forEach((childSnapshot) => {
+                    const notif = childSnapshot.val();
+                    const notifTime = new Date(notif.timestamp).getTime();
+                    if (notifTime > maxTime) maxTime = notifTime;
+                });
+                if (maxTime > 0) lastUserNotificationTime = maxTime;
+            });
+        }
+        
+        // Setup real-time chat listener for user (to detect new admin messages)
+        function setupChatListener() {
+            if (!currentUserId) return;
+            
+            const chatRef = ref(db, `chats/${currentUserId}`);
+            onValue(chatRef, (snapshot) => {
+                if (snapshot.exists() && lastChatMessageTime !== null) {
+                    snapshot.forEach((childSnapshot) => {
+                        const msg = childSnapshot.val();
+                        const msgTime = new Date(msg.timestamp).getTime();
+                        
+                        // If this is a new admin message
+                        if (msg.sender === 'admin' && msgTime > lastChatMessageTime) {
+                            playUserNotificationSound();
+                            showToast('New message from Admin!', 'success');
+                            lastChatMessageTime = msgTime;
+                            loadNotifications();
+                            break;
+                        }
+                    });
+                }
+                
+                // Update last message time
+                let maxTime = 0;
+                snapshot.forEach((childSnapshot) => {
+                    const msg = childSnapshot.val();
+                    const msgTime = new Date(msg.timestamp).getTime();
+                    if (msgTime > maxTime) maxTime = msgTime;
+                });
+                if (maxTime > 0) lastChatMessageTime = maxTime;
+            });
         }
 
         // Load Notifications
@@ -3680,6 +3807,8 @@
             loadAdminNotifications();
             loadBanners();
             loadGlobalWithdrawalSettings();
+            loadAdminProfilePicture();
+            setupAdminNotificationListener();
         }
 
         // Load Admin Stats
@@ -5072,6 +5201,16 @@
                     read: false
                 });
                 
+                // Create notification for user
+                const notificationRef = push(ref(db, `users/${userId}/notifications`));
+                await set(notificationRef, {
+                    title: 'Admin Message',
+                    message: message.substring(0, 50) + (message.length > 50 ? '...' : ''),
+                    timestamp: new Date().toISOString(),
+                    read: false,
+                    type: 'chat'
+                });
+                
                 input.value = '';
                 loadAdminChatMessages(userId);
                 
@@ -5134,7 +5273,20 @@
                         const item = document.createElement('div');
                         item.className = `notification-item ${!notification.read ? 'unread' : ''}`;
                         
-                        if (notification.type === 'registration_fee') {
+                        if (notification.type === 'chat') {
+                            item.innerHTML = `
+                                <h4>💬 New Support Message</h4>
+                                <p>${notification.message || 'New message from user'}</p>
+                                <p class="time">${new Date(notification.timestamp).toLocaleString()}</p>
+                            `;
+                            item.onclick = () => {
+                                markAdminNotificationAsRead(notification.id);
+                                if (notification.userId) {
+                                    showAdminSection('support');
+                                    setTimeout(() => openAdminChat(notification.userId), 500);
+                                }
+                            };
+                        } else if (notification.type === 'registration_fee') {
                             item.innerHTML = `
                                 <h4>📝 New Registration Fee</h4>
                                 <p><strong>User:</strong> ${notification.userName}</p>
@@ -5184,6 +5336,39 @@
             } catch (error) {
                 console.error('Error marking notification as read:', error);
             }
+        }
+        
+        // Setup real-time notification listener for admin
+        function setupAdminNotificationListener() {
+            const notificationsRef = ref(db, 'adminNotifications');
+            onValue(notificationsRef, (snapshot) => {
+                if (snapshot.exists() && lastAdminNotificationTime !== null) {
+                    let newNotification = false;
+                    snapshot.forEach((childSnapshot) => {
+                        const notif = childSnapshot.val();
+                        const notifTime = new Date(notif.timestamp).getTime();
+                        
+                        if (notifTime > lastAdminNotificationTime && !notif.read) {
+                            newNotification = true;
+                            lastAdminNotificationTime = notifTime;
+                        }
+                    });
+                    
+                    if (newNotification) {
+                        playAdminNotificationSound();
+                        loadAdminNotifications();
+                    }
+                }
+                
+                // Update last notification time
+                let maxTime = 0;
+                snapshot.forEach((childSnapshot) => {
+                    const notif = childSnapshot.val();
+                    const notifTime = new Date(notif.timestamp).getTime();
+                    if (notifTime > maxTime) maxTime = notifTime;
+                });
+                if (maxTime > 0) lastAdminNotificationTime = maxTime;
+            });
         }
 
         // Admin Logout
